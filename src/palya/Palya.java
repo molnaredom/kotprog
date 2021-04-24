@@ -104,7 +104,7 @@ public class Palya {
     }
 
 
-    public void generaljTargyat(Targy t) {
+    public void generaljTargyat(Targy t) {//d
         boolean fusson = true;
 
         while (fusson) {
