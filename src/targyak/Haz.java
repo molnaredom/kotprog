@@ -6,8 +6,8 @@ public class Haz extends Targy{
 
 
 
-    public Haz( boolean vanPapir) {
-        super("Ha",6, 7,  vanPapir, true);
+    public Haz() {
+        super("Ha",6, 7, true);
     }
 
 }

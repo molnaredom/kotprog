@@ -4,6 +4,8 @@ import palya.Palya;
 import palya.Papir;
 import targyak.*;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Jatek {
@@ -13,6 +15,7 @@ public class Jatek {
     Palya palya = new Palya();
     Ember embi = new Ember();
     Slenderman slnd = new Slenderman();
+    Random random = new Random();
 
 
     public void start() {
@@ -69,23 +72,63 @@ public class Jatek {
 
 
     public void jatekgeneral() {
+        Haz haz =new Haz();
+
+        Auto auto1 = new Auto();
+        Auto auto2 = new Auto();
+
+        Teherauto teherauto = new Teherauto();
+
+        Szikla szikla1 = new Szikla();
+        Szikla szikla2 = new Szikla();
+
+        NagyFa nagyFa1 = new NagyFa();
+        NagyFa nagyFa2 = new NagyFa();
+
+
+//amik esetlegesen papirt tartalmazhatnak
+        Targy[] t = new Targy[] {
+                haz,auto1,auto2,teherauto,szikla1,szikla2,nagyFa1,nagyFa2
+        };
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+
+        int osszPapirSzam = 8;
+        int hanyDarabPapirleloHely =t.length;
+        while (arrayList.size() <osszPapirSzam)  {
+            int  generaltSzam = random.nextInt(hanyDarabPapirleloHely);
+            if (!arrayList.contains(generaltSzam)) {
+                arrayList.add(generaltSzam);
+            }
+        }
+
+        for (int i : arrayList) {
+            t[i].setVanPapir(true);//a kisorsolt helyeknen legyenek papirok
+        }
+
+
+
+
+
+
+
         palya.generalAlapot();
+        palya.generaljTargyat(szikla1);
+        palya.generaljTargyat(szikla2);
+        palya.generaljTargyat(auto1);
+        palya.generaljTargyat(auto2);
+        palya.generaljTargyat(nagyFa1);
+        palya.generaljTargyat(nagyFa2);
+        palya.generaljTargyat(haz);
+        palya.generaljTargyat(teherauto);
 
-        palya.generaljTargyat(new Haz(true));
-        palya.generaljTargyat(new Auto(true));
-        palya.generaljTargyat(new Teherauto(true));
-        palya.generaljTargyat(new Szikla(true));
-        palya.generaljTargyat(new Szikla(true));
-        palya.generaljTargyat(new Auto(true));
-        palya.generaljTargyat(new Hordo(true));
 
         palya.generaljTargyat(new KisFa());
         palya.generaljTargyat(new KisFa());
         palya.generaljTargyat(new KisFa());
         palya.generaljTargyat(new KisFa());
 
-        palya.generaljTargyat(new NagyFa(true));
-        palya.generaljTargyat(new NagyFa(true));
+
 
 
 
