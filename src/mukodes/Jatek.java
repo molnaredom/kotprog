@@ -56,7 +56,7 @@ public class Jatek {
 
 
             palya.emberLepes();
-            System.out.println("hoppa");
+            embi.hanyDBpapir();
 
 
             if (embi.getPapirSzam()>=1) {
@@ -72,6 +72,8 @@ public class Jatek {
 
 
     public void jatekgeneral() {
+
+        //todo ne lehessen ket azonos objektum egymas mellett mert akkor kiveszi a papirt mindkettobol
         Haz haz =new Haz();
 
         Auto auto1 = new Auto();
@@ -93,7 +95,7 @@ public class Jatek {
 
         ArrayList<Integer> arrayList = new ArrayList<>();
 
-        int osszPapirSzam = 8;
+        int osszPapirSzam = 6;
         int hanyDarabPapirleloHely =t.length;
         while (arrayList.size() <osszPapirSzam)  {
             int  generaltSzam = random.nextInt(hanyDarabPapirleloHely);

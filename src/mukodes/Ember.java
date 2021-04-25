@@ -44,12 +44,15 @@ public class Ember extends MozgoLeny {
     }
 
 
-
-
     public void papirthozzaad() {
         papirSzam++;
-        System.out.println("jelenleg "+papirSzam+"papirod van");
+        System.out.println("!!!!!PAPÍRT TALÁLTÁL!!!!");
     }
+    public void hanyDBpapir() {
+        System.out.printf("jelenleg %d papírod van\n\n",papirSzam);
+    }
+
+
 
 
     //palya[i-1][j],palya[i][j+1],palya[i+1][j],palya[i][j-1]
@@ -57,46 +60,60 @@ public class Ember extends MozgoLeny {
 
         String irany = sc.next();
 
-        if (irany.equals("w")) {
+        switch (irany) {
+            case "w":
+                if (emberBABUy > 0) {
 
-            System.out.println("elore");
-            if (emberBABUy!=0){
+                    if (palya[emberBABUy - 1][emberBABUx].getTartalom().getNev().equals("--") ||
+                            palya[emberBABUy - 1][emberBABUx].getTartalom().getNev().equals("KF")
+                    ) {
+                        emberBABUy--;
+                        System.out.println("elore");
 
-                if (palya[emberBABUy-1][emberBABUx].getTartalom().getNev().equals("--") ||
-                        palya[emberBABUy-1][emberBABUx].getTartalom().getNev().equals("KF")
-                )emberBABUy--;
-                else System.out.println("Erre a tárgyra nem léphetsz rá");
-            }
-            else System.out.println("nem léphetsz ki a pályáról!");
+                    } else System.out.println("Erre a tárgyra nem léphetsz rá");
+                } else System.out.println("nem léphetsz ki a pályáról!");
 
-        } else if (irany.equals("d")) {
-            System.out.println("jobbra");
-            if (emberBABUx!=14)
-            if (palya[emberBABUy][emberBABUx+1].getTartalom().getNev().equals("--") ||
-                    palya[emberBABUy][emberBABUx+1].getTartalom().getNev().equals("KF")
-            )emberBABUx++;
-            else System.out.println("Erre a tárgyra nem léphetsz rá");
-            else System.out.println("nem léphetsz ki a pályáról!");
+                break;
+            case "d":
 
-        } else if (irany.equals("a")) {
-            System.out.println("balra");
-            if (emberBABUx!=0)
-            if (palya[emberBABUy][emberBABUx-1].getTartalom().getNev().equals("--") ||
-                    palya[emberBABUy][emberBABUx-1].getTartalom().getNev().equals("KF")
-            )emberBABUx--;
-            else System.out.println("Erre a tárgyra nem léphetsz rá");
+                if (emberBABUx != 14)
+                    if (palya[emberBABUy][emberBABUx + 1].getTartalom().getNev().equals("--") ||
+                            palya[emberBABUy][emberBABUx + 1].getTartalom().getNev().equals("KF")
+                    ) {
+                        emberBABUx++;
+                        System.out.println("jobbra");
+                    } else System.out.println("Erre a tárgyra nem léphetsz rá");
+                else System.out.println("nem léphetsz ki a pályáról!");
 
-            else System.out.println("nem léphetsz ki a pályáról!");
-        } else if (irany.equals("s")) {
-            System.out.println("lefele");
-            if (emberBABUy!=14)emberBABUy++;
-            if (palya[emberBABUy+1][emberBABUx].getTartalom().getNev().equals("--") ||
-                    palya[emberBABUy+1][emberBABUx].getTartalom().getNev().equals("KF")
-            )emberBABUy++;
-            else System.out.println("nem léphetsz ki a pályáról!");
-        } else {
-            System.out.println("Valamit rosszul irtal be , mozgas a-w-s-d vel");
+                break;
+            case "a":
 
+                if (emberBABUx > 0)//ha x nullan all akkor nem lephet balra
+                    if (palya[emberBABUy][emberBABUx - 1].getTartalom().getNev().equals("--") ||
+                            palya[emberBABUy][emberBABUx - 1].getTartalom().getNev().equals("KF")
+                    ) {
+                        emberBABUx--;
+                        System.out.println("balra");
+                    } else System.out.println("Erre a tárgyra nem léphetsz rá");
+
+                else System.out.println("nem léphetsz ki a pályáról!");
+
+
+                break;
+            case "s":
+
+                if (emberBABUy != 15)
+                    if (palya[emberBABUy + 1][emberBABUx].getTartalom().getNev().equals("--") ||
+                            palya[emberBABUy + 1][emberBABUx].getTartalom().getNev().equals("KF")
+                    ) {
+                        emberBABUy++;
+                        System.out.println("lefele");
+                    } else System.out.println("nem léphetsz ki a pályáról!");
+                break;
+            default:
+                System.out.println("Valamit rosszul irtal be , mozgas a-w-s-d vel");
+
+                break;
         }
 
 

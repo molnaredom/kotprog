@@ -29,7 +29,8 @@ public class Palya {
     /**
      * kiirja a palya minden egyes mezojenek a tartalmat matrixsueruen
      */
-    public static void kiir(Mezo[][] palyA) {
+    public void kiir(Mezo[][] palyA) {
+        embi.hanyDBpapir();
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 System.out.printf("%3s", palyA[i][j].tartalom.getNev());
@@ -76,32 +77,70 @@ public class Palya {
 
     }
 
-    public boolean papirtkeres(int y, int x) {
+    public void papirtkeres(int y, int x) {
 
         if (y <= 13 && palya[x][y + 1].getTartalom().isVanPapir()) {
             embi.papirthozzaad();
-            //todo egy nagy auton csak 1 papir lenyen es ne annyi ahany elembol all az auto
-            return true;
+            palya[x][y + 1].getTartalom().setVanPapir(false);
+            mellettePapirKivesz(y+1,x, (Targy) palya[x][y + 1].getTartalom());
+
+
         } else if (y >= 1 && palya[x][y - 1].getTartalom().isVanPapir()) {
 
             embi.papirthozzaad();
-            return true;
+            mellettePapirKivesz(y+1,x, (Targy) palya[x][y + 1].getTartalom());
+
         } else if (x <= 13 && palya[x + 1][y].getTartalom().isVanPapir()) {
 
             embi.papirthozzaad();
-            return true;
+            mellettePapirKivesz(y+1,x, (Targy) palya[x][y + 1].getTartalom());
+
         } else if (x >= 1 && palya[x - 1][y].getTartalom().isVanPapir()) {
 
             embi.papirthozzaad();
-            return true;
+            mellettePapirKivesz(y+1,x, (Targy) palya[x][y + 1].getTartalom());
+
         }
 
-        System.out.println("Nem találtál papírt" +palya[x-1][y].getTartalom().isVanPapir() );
 
-        return false;
 
 
     }
+
+
+    //rekurziv modon kikeresi hogy honnan kell meg kivenni a papirt
+     private void mellettePapirKivesz(int y, int x, Targy keressuk) {
+        //önnamgaban is legyen false a papir
+         palya[x][y].getTartalom().setVanPapir(false);
+
+        if (y <= 13 && palya[x][y + 1].getTartalom().equals(keressuk)) {
+
+            palya[x][y + 1].getTartalom().setVanPapir(false);
+            mellettePapirKivesz(y+1,x, keressuk);
+
+            //todo egy nagy auton csak 1 papir lenyen es ne annyi ahany elembol all az auto
+
+        } else if (y >= 1 && palya[x][y - 1].getTartalom().isVanPapir()) {
+
+            palya[x][y - 1].getTartalom().setVanPapir(false);
+            mellettePapirKivesz(y-1,x, keressuk);
+
+
+        } else if (x <= 13 && palya[x + 1][y].getTartalom().isVanPapir()) {
+
+            palya[x+1][y].getTartalom().setVanPapir(false);
+            mellettePapirKivesz(y,x+1, keressuk);
+
+        } else if (x >= 1 && palya[x - 1][y].getTartalom().isVanPapir()) {
+
+            palya[x-1][y].getTartalom().setVanPapir(false);
+            mellettePapirKivesz(y,x-1, keressuk);
+
+        }
+
+
+
+     }
 
 
     public void generaljTargyat(Targy t) {//d
