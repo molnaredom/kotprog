@@ -18,6 +18,9 @@ public class Jatek {
     Random random = new Random();
 
 
+    /**
+     * jatek inditasa: milyen palyat akarunk,es azzal inditas
+     */
     public void start() {
         Scanner sc = new Scanner(System.in);
         boolean jolbeirt =false;
@@ -48,6 +51,9 @@ public class Jatek {
 
     }
 
+    /**
+     * ha mar meg van a palya ezzel elindul a valós játék
+     */
     public void jatekInditas() {
 
         boolean tartAJAtek = true;
@@ -55,7 +61,7 @@ public class Jatek {
         while (tartAJAtek) {
 
 
-            palya.emberLepes();
+            palya.emberLepesPalyan();
             embi.hanyDBpapir();
 
 
@@ -67,13 +73,12 @@ public class Jatek {
     }
 
 
-
-
-
-
+    /**
+     * legeneralja a palyat es a papirok randomitasat
+     */
     public void jatekgeneral() {
 
-        //todo ne lehessen ket azonos objektum egymas mellett mert akkor kiveszi a papirt mindkettobol
+        //todo tul hosszu szet kell szedni
         Haz haz =new Haz();
 
         Auto auto1 = new Auto();

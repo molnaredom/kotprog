@@ -4,14 +4,14 @@ import mukodes.Ember;
 import mukodes.Slenderman;
 import targyak.Fu;
 import targyak.Targy;
-
 import java.util.Random;
+
 
 public class Palya {
     Mezo[][] palya = new Mezo[15][15];
     Random random = new Random();
     Ember embi = new Ember();
-    Slenderman slndBABU = new Slenderman();
+    Slenderman slnd = new Slenderman();
 
 
     /**
@@ -42,9 +42,9 @@ public class Palya {
 
 
     /**
-     *
+     *Az ember lepeseit hajtja vegre
      */
-    public void emberLepes() {
+    public void emberLepesPalyan() {
 
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
@@ -77,6 +77,12 @@ public class Palya {
 
     }
 
+
+    /**
+     * megnezi hogy elore hatra baljra jobbre talalhato e papir, ha igrn akkor magahoz veszi az ember
+     * @param y tengelypont ahol a papirt keresi
+     * @param x tengelypont ahol a papirt keresi
+     */
     public void papirtkeres(int y, int x) {
 
         if (y <= 13 && palya[x][y + 1].getTartalom().isVanPapir()) {
@@ -108,7 +114,9 @@ public class Palya {
     }
 
 
-    //rekurziv modon kikeresi hogy honnan kell meg kivenni a papirt
+    /**
+     * rekurziv modon megoldja, hogy az objektumon ahol papirt talaltznk minden egyes pontjan ki legyen veve az objektum
+     */
      private void mellettePapirKivesz(int y, int x, Targy keressuk) {
         //önnamgaban is legyen false a papir
          palya[x][y].getTartalom().setVanPapir(false);
@@ -143,7 +151,12 @@ public class Palya {
      }
 
 
+    /**
+     * keszit egy targyhalmazt
+     * @param t az a targy alkotoelem amibol szeretnenk letrehozni egy tobb elemu targy halmazt, ami valojaban a tenyleges targy
+     */
     public void generaljTargyat(Targy t) {//d
+        //todo ne lehessen ket azonos objektum egymas mellett mert akkor kiveszi a papirt mindkettobol
         boolean fusson = true;
 
         while (fusson) {
