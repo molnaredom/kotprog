@@ -57,23 +57,40 @@ public class Jatek {
 
         boolean tartAJAtek = true;
 
+        int kor = 0; //hanyadik kornel jarunk
+        int slAmikorBelepett = 0;
+        boolean slmanjatekban =false;
         while (tartAJAtek) {
 
 
             palya.emberLepesPalyan();
-
-
-
+            kor++;
+            System.out.println(kor);
             if (palya.hanypapir()==8) {
                 System.out.println("\n\n\n\n!!!!!!!MEGNYERTED A JÁTÉKOT!!!!!!\n\n\n");
                 tartAJAtek=false;
             }
+            else if ( palya.hanypapir() >=1) {
+                if (!slmanjatekban) {
+                    slmanjatekban=true;
+                    palya.slendermanLepesAPalyan();
+                    slAmikorBelepett=kor-1;
+                    System.out.println("megjelent a slenderman");
+                }else {
+                    if ((kor-slAmikorBelepett)%5==0) {
+                        System.out.println("LÉPETT A SLENDERMAN");
+                        palya.slendermanLepesAPalyan();
+                    }
+                }
 
 
-            if ( palya.hanypapir() >=1) {
-                //palya.slendermanLepesAPalyan();
-                System.out.println("mefjelent a slenderman");
+
             }
+
+
+
+
+
         }
 
     }
