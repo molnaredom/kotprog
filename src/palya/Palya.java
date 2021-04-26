@@ -3,6 +3,7 @@ package palya;
 import mukodes.Ember;
 import mukodes.Slenderman;
 import targyak.Fu;
+import targyak.Objektum;
 import targyak.Targy;
 import java.util.Random;
 
@@ -12,7 +13,28 @@ public class Palya {
     Random random = new Random();
     Ember embi = new Ember();
     Slenderman slnd = new Slenderman();
+    int sldManLepes =0;
+    Mezo elozolepes;
 
+
+    public void slendermanLepesAPalyan() {
+        int x = random.nextInt(15);
+        int y = random.nextInt(15);
+
+        if (sldManLepes>0) {
+            palya[elozolepes.getX()][elozolepes.getY()].setTartalom(elozolepes.tartalom);
+        }
+        elozolepes= palya[x][y];
+        palya[x][y].setTartalom(slnd);
+
+
+
+
+    }
+
+    public int hanypapir() {
+        return embi.papirszam();
+    }
 
     /**
      * A palya minden elemet default modon feltolti fűvel, ezen persze at lehet haladni
@@ -69,6 +91,7 @@ public class Palya {
 
                     //kiirja jelenlegi palyat
                     kiir(palya);
+                    return;
                 }
 
 

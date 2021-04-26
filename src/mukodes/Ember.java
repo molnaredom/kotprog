@@ -51,6 +51,9 @@ public class Ember extends MozgoLeny {
     public void hanyDBpapir() {
         System.out.printf("jelenleg %d papírod van\n\n",papirSzam);
     }
+    public int papirszam() {
+        return papirSzam;
+    }
 
 
 
