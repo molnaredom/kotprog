@@ -1,4 +1,4 @@
-package mukodes;
+import mukodes.Jatek;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class Main {
 
         /*Scanner scanner = null;
         try {
-            scanner = new Scanner(new File("palya1.txt"));
+            scanner = new Scanner(new File("p.txt"));
             while(scanner.hasNextLine()) {
                 System.out.println(scanner.nextLine());
             }

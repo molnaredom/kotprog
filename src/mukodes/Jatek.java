@@ -64,12 +64,13 @@ public class Jatek {
             palya.emberLepesPalyan();
             kor++;
             System.out.println(kor);
-            palya.slendermanLepesAPalyan();
 
+            palya.slmnTavonBelulTeleport(3);
 
+/*
             //ha megvan a 8 papir nyerés
             if (palya.hanypapir() == 8) {
-                System.out.println("\n\n\n\n!!!!!!!MEGNYERTED A JÁTÉKOT!!!!!!\n\n\n");
+                System.out.println("\n\n\n\n!!!!!!!MEGNYERTED A JÁTÉKOT!!!!!!\n\n\n\n");
                 tartAJAtek = false; //leall a jatek
 
             }
@@ -77,39 +78,36 @@ public class Jatek {
             else if (palya.hanypapir() >= 6) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
                     System.out.println("LÉPETT A SLENDERMAN");
-                    palya.slendermanLepesAPalyan();
                 }
             }
             //ha [4,6) intervallumon
             else if (palya.hanypapir() >= 4) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
                     System.out.println("LÉPETT A SLENDERMAN");
-                    palya.slendermanLepesAPalyan();
                 }
             }
             //  [2,4)  intervallumon
             else if (palya.hanypapir() >= 2) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
                     System.out.println("LÉPETT A SLENDERMAN");
-                    palya.slendermanLepesAPalyan();
                 }
             }
             // [0,2)  intervallumon
-            else if (palya.hanypapir() >= 1) {
+            if (palya.hanypapir() >= 1) {
                 if (!slmanjatekban) { //elso lepes
                     slmanjatekban = true;
-                    palya.slendermanLepesAPalyan();
+                    palya.slmanRandomTeleport5lepesenkent();
                     slAmikorBelepett = kor - 1;
                     System.out.println("megjelent a slenderman");
                 } else { //nem elso lepes ,
                     if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
                         System.out.println("LÉPETT A SLENDERMAN");
-                        palya.slendermanLepesAPalyan();
+                        palya.slmanRandomTeleport5lepesenkent();
                     }
                 }
 
                 //ha 2 vagy annal tobb patpirja van
-            }
+            }*/
 
 
 
@@ -180,7 +178,7 @@ public class Jatek {
 
 
     public void jatekBeolvas() {
-        File file = new File("palya1.txt");
+        File file = new File("p.txt");
 
         try {
             Scanner scanner = new Scanner(file);

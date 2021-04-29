@@ -5,6 +5,7 @@ import mukodes.Slenderman;
 import targyak.Fu;
 import targyak.Objektum;
 import targyak.Targy;
+
 import java.util.Random;
 
 
@@ -13,21 +14,21 @@ public class Palya {
     Random random = new Random();
     Ember embi = new Ember();
     Slenderman slnd = new Slenderman();
-    int sldManLepes =0;
-    Mezo elozolepes;
-    int elozox =0;
-    int elozoy =0;
-    Targy elozotargy=null;
+    int sldManLepes = 0;
+    int elozox = 0;
+    int elozoy = 0;
+    Targy elozotargy = null;
 
 
-    public void slendermanLepesAPalyan() {
+    public boolean slmanRandomTeleport5lepesenkent() {
         int x = random.nextInt(15);
         int y = random.nextInt(15);
 
-        if (sldManLepes>0) {  //ha nem az elso lepes akkor visszatesszuk a tartalmat arra a helyre ahonnan elteleportal a slenderman
+        if (sldManLepes > 0) {  //ha nem az elso lepes akkor visszatesszuk a tartalmat arra a helyre ahonnan elteleportal a slenderman
 
             palya[elozox][elozoy].setTartalom(elozotargy);
         }
+        if (palya[x][y].getTartalom().getNev().equals("E")) return true;
 
         //eltaroljuk az adatokat
         elozox = x;
@@ -38,7 +39,48 @@ public class Palya {
         palya[x][y].setTartalom(slnd);
 
         sldManLepes++;
+
+        return false;
     }
+
+
+    public boolean slmnTavonBelulTeleport(int manhattanTav) {
+
+        //visszaallitjuk a ez elozo lepes targyat az eredetire
+        //palya[elozox][elozoy].setTartalom(elozotargy);
+
+
+        //int tavolsag = Math.abs(x1-x0) + Math.abs(y1-y0);
+        boolean joAtav = false;
+        while (!joAtav) {
+            int eX = embi.getEmberBABUx();
+            int eY = embi.getEmberBABUy();
+            int slmX = eX-manhattanTav + random.nextInt(manhattanTav*2);
+            int slmY =eY-manhattanTav + random.nextInt(manhattanTav*2);
+
+
+            int tavolsag = Math.abs(eX - slmX) + Math.abs(eY - slmY);
+            if (tavolsag <= manhattanTav && slmX<15 && slmX>=0 && slmY<15 &&  slmY>=0) {
+                joAtav = true;
+                if (sldManLepes > 0)  palya[elozoy][elozox].setTartalom(elozotargy);
+                elozox = slmX;
+                elozoy = slmY;
+                if (palya[slmY][slmX].getTartalom().getNev().equals("E")) return true;
+
+                elozotargy = (Targy) palya[slmY][slmX].tartalom;
+
+
+                palya[slmY][slmX].setTartalom(slnd);
+
+                sldManLepes++;
+
+            }
+
+        }
+        return false;
+
+    }
+
 
     public int hanypapir() {
         return embi.papirszam();
@@ -72,7 +114,7 @@ public class Palya {
 
 
     /**
-     *Az ember lepeseit hajtja vegre
+     * Az ember lepeseit hajtja vegre
      */
     public void emberLepesPalyan() {
 
@@ -95,7 +137,7 @@ public class Palya {
                     //visszanovesztjuk az emberunk utan a fuvet es a kis fakat hogy atlathato legyen a map
                     palya[i][j].setTartalom(new Fu());
 
-                    papirtkeres(embi.getEmberBABUx(),embi.getEmberBABUy());
+                    papirtkeres(embi.getEmberBABUx(), embi.getEmberBABUy());
 
                     //kiirja jelenlegi palyat
                     kiir(palya);
@@ -111,6 +153,7 @@ public class Palya {
 
     /**
      * megnezi hogy elore hatra baljra jobbre talalhato e papir, ha igrn akkor magahoz veszi az ember
+     *
      * @param y tengelypont ahol a papirt keresi
      * @param x tengelypont ahol a papirt keresi
      */
@@ -119,27 +162,25 @@ public class Palya {
         if (y <= 13 && palya[x][y + 1].getTartalom().isVanPapir()) {
             embi.papirthozzaad();
             palya[x][y + 1].getTartalom().setVanPapir(false);
-            mellettePapirKivesz(y+1,x, (Targy) palya[x][y + 1].getTartalom());
+            mellettePapirKivesz(y + 1, x, (Targy) palya[x][y + 1].getTartalom());
 
 
         } else if (y >= 1 && palya[x][y - 1].getTartalom().isVanPapir()) {
 
             embi.papirthozzaad();
-            mellettePapirKivesz(y+1,x, (Targy) palya[x][y + 1].getTartalom());
+            mellettePapirKivesz(y + 1, x, (Targy) palya[x][y + 1].getTartalom());
 
         } else if (x <= 13 && palya[x + 1][y].getTartalom().isVanPapir()) {
 
             embi.papirthozzaad();
-            mellettePapirKivesz(y+1,x, (Targy) palya[x][y + 1].getTartalom());
+            mellettePapirKivesz(y + 1, x, (Targy) palya[x][y + 1].getTartalom());
 
         } else if (x >= 1 && palya[x - 1][y].getTartalom().isVanPapir()) {
 
             embi.papirthozzaad();
-            mellettePapirKivesz(y+1,x, (Targy) palya[x][y + 1].getTartalom());
+            mellettePapirKivesz(y + 1, x, (Targy) palya[x][y + 1].getTartalom());
 
         }
-
-
 
 
     }
@@ -148,42 +189,42 @@ public class Palya {
     /**
      * rekurziv modon megoldja, hogy az objektumon ahol papirt talaltznk minden egyes pontjan ki legyen veve az objektum
      */
-     private void mellettePapirKivesz(int y, int x, Targy keressuk) {
+    private void mellettePapirKivesz(int y, int x, Targy keressuk) {
         //önnamgaban is legyen false a papir
-         palya[x][y].getTartalom().setVanPapir(false);
+        palya[x][y].getTartalom().setVanPapir(false);
 
         if (y <= 13 && palya[x][y + 1].getTartalom().equals(keressuk)) {
 
             palya[x][y + 1].getTartalom().setVanPapir(false);
-            mellettePapirKivesz(y+1,x, keressuk);
+            mellettePapirKivesz(y + 1, x, keressuk);
 
             //todo egy nagy auton csak 1 papir lenyen es ne annyi ahany elembol all az auto
 
         } else if (y >= 1 && palya[x][y - 1].getTartalom().isVanPapir()) {
 
             palya[x][y - 1].getTartalom().setVanPapir(false);
-            mellettePapirKivesz(y-1,x, keressuk);
+            mellettePapirKivesz(y - 1, x, keressuk);
 
 
         } else if (x <= 13 && palya[x + 1][y].getTartalom().isVanPapir()) {
 
-            palya[x+1][y].getTartalom().setVanPapir(false);
-            mellettePapirKivesz(y,x+1, keressuk);
+            palya[x + 1][y].getTartalom().setVanPapir(false);
+            mellettePapirKivesz(y, x + 1, keressuk);
 
         } else if (x >= 1 && palya[x - 1][y].getTartalom().isVanPapir()) {
 
-            palya[x-1][y].getTartalom().setVanPapir(false);
-            mellettePapirKivesz(y,x-1, keressuk);
+            palya[x - 1][y].getTartalom().setVanPapir(false);
+            mellettePapirKivesz(y, x - 1, keressuk);
 
         }
 
 
-
-     }
+    }
 
 
     /**
      * keszit egy targyhalmazt
+     *
      * @param t az a targy alkotoelem amibol szeretnenk letrehozni egy tobb elemu targy halmazt, ami valojaban a tenyleges targy
      */
     public void generaljTargyat(Targy t) {//d
