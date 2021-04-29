@@ -20,8 +20,10 @@ public class Palya {
     Targy elozotargy = null;
 
 
-
-
+    /**
+     * minden 5. lepesnel teljesen random teleportal a palyan
+     * @return ha igaz a slenderman ralepett az emberre
+     */
     public boolean slmanRandomTeleport5lepesenkent() {
         int x = random.nextInt(15);
         int y = random.nextInt(15);
@@ -45,7 +47,19 @@ public class Palya {
         return false;
     }
 
+    /**
+     *
+     * @param palyakapott a palya amit beallit az uj palyakent
+     */
+    public void setPalya(Mezo[][] palyakapott) {
+        this.palya = palyakapott;
+    }
 
+    /**
+     *
+     * @param manhattanTav ezen a tavolsagon belul teleportal
+     * @return visszateriti hogy ralepett e a slenderman az embere
+     */
     public boolean slmnTavonBelulTeleport(int manhattanTav) {
 
         //visszaallitjuk a ez elozo lepes targyat az eredetire
@@ -85,7 +99,10 @@ public class Palya {
 
     }
 
-
+    /**
+     *
+     * @return a visszateresi erteke visszaadja hany darab papir van
+     */
     public int hanypapir() {
         return embi.papirszam();
     }

@@ -10,6 +10,13 @@ public class Mezo {
     Objektum tartalom;
     boolean szabadLepni;
 
+    /**
+     *
+     * @param x sor
+     * @param y oszlop
+     * @param tartalomT beallitott taartalom PL fu
+     * @param szabadLepni Szabad e ralepni a targyra
+     */
     public Mezo(int x, int y, Targy tartalomT, boolean szabadLepni) {//targy inic
         this.x = x;
         this.y = y;
@@ -17,27 +24,6 @@ public class Mezo {
         this.szabadLepni = szabadLepni;
     }
 
-    public Mezo(int x, int y, Objektum tartalomL) {//lény inic
-        this.x = x;
-        this.y = y;
-        this.tartalom = tartalomL;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public Objektum getTartalom() {
         return tartalom;
@@ -47,11 +33,4 @@ public class Mezo {
         this.tartalom = tartalom;
     }
 
-    public boolean isSzabadLepni() {
-        return szabadLepni;
-    }
-
-    public void setSzabadLepni(boolean szabadLepni) {
-        this.szabadLepni = szabadLepni;
-    }
 }

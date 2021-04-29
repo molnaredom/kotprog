@@ -7,50 +7,48 @@ import java.util.Scanner;
 public class Ember extends MozgoLeny {
 
     int papirSzam = 0;
-
     int emberBABUx = 0;
     int emberBABUy = 14;
 
     static Scanner sc = new Scanner(System.in);
 
 
-    public int getPapirSzam() {
-        return papirSzam;
-    }
 
     public Ember() {
         setNev("E");
     }
 
 
-    public void setPapirSzam(int papirSzam) {
-        this.papirSzam = papirSzam;
-    }
 
     public int getEmberBABUx() {
         return emberBABUx;
     }
 
-    public void setEmberBABUx(int emberBABUx) {
-        this.emberBABUx = emberBABUx;
-    }
 
     public int getEmberBABUy() {
         return emberBABUy;
     }
 
-    public void setEmberBABUy(int emberBABUy) {
-        this.emberBABUy = emberBABUy;
-    }
 
-
+    /**
+     *  kiiratja a papirszamot
+     */
     public void papirthozzaad() {
         papirSzam++;
         System.out.println("!!!!!PAPÍRT TALÁLTÁL!!!!");
     }
+
+    /**
+     * lekeri a papirszamot
+     */
     public void hanyDBpapir() {
         System.out.printf("jelenleg %d papírod van\n\n",papirSzam);
     }
+
+    /***
+     *
+     * @return visszaadja a papirszmot
+     */
     public int papirszam() {
         return papirSzam;
     }
@@ -59,6 +57,11 @@ public class Ember extends MozgoLeny {
 
 
     //palya[i-1][j],palya[i][j+1],palya[i+1][j],palya[i][j-1]
+
+    /**
+     *
+     * @param: a palyaaz ember mozhasat iranyitja a metodus
+     */
     public void mozgas(Mezo[][] palya) {
 
         String irany = sc.next();
@@ -71,7 +74,6 @@ public class Ember extends MozgoLeny {
                             palya[emberBABUy - 1][emberBABUx].getTartalom().getNev().equals("KF")
                     ) {
                         emberBABUy--;
-                        System.out.println("elore");
 
                     } else System.out.println("Erre a tárgyra nem léphetsz rá");
                 } else System.out.println("nem léphetsz ki a pályáról!");
@@ -84,7 +86,6 @@ public class Ember extends MozgoLeny {
                             palya[emberBABUy][emberBABUx + 1].getTartalom().getNev().equals("KF")
                     ) {
                         emberBABUx++;
-                        System.out.println("jobbra");
                     } else System.out.println("Erre a tárgyra nem léphetsz rá");
                 else System.out.println("nem léphetsz ki a pályáról!");
 
@@ -96,7 +97,6 @@ public class Ember extends MozgoLeny {
                             palya[emberBABUy][emberBABUx - 1].getTartalom().getNev().equals("KF")
                     ) {
                         emberBABUx--;
-                        System.out.println("balra");
                     } else System.out.println("Erre a tárgyra nem léphetsz rá");
 
                 else System.out.println("nem léphetsz ki a pályáról!");
@@ -110,7 +110,6 @@ public class Ember extends MozgoLeny {
                             palya[emberBABUy + 1][emberBABUx].getTartalom().getNev().equals("KF")
                     ) {
                         emberBABUy++;
-                        System.out.println("lefele");
                     } else System.out.println("nem léphetsz ki a pályáról!");
                 break;
             default:

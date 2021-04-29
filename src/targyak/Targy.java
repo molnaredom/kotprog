@@ -9,16 +9,26 @@ public  class Targy extends Objektum {
     boolean akadaly;
 
 
-        //van Papir
-    public Targy(String nev, int meretX, int meretY,  boolean vanPapir, boolean akadaly) {
+    //van Papir
+
+    /**
+     *
+     * @param nev  neve
+     * @param meretX szelessege
+     * @param meretY magassaga
+     * @param vanPapir van e rajta papir
+     * @param akadaly at lehet e menni rajta
+     */
+    public Targy(String nev, int meretX, int meretY, boolean vanPapir, boolean akadaly) {
         this.nev = nev;
         this.meretX = meretX;
         this.meretY = meretY;
         setVanPapir(vanPapir);
         this.akadaly = akadaly;
     }
-        //nincs Papir
-    public Targy(String nev, int meretX, int meretY,  boolean akadaly) {
+
+    //nincs Papir
+    public Targy(String nev, int meretX, int meretY, boolean akadaly) {
         this.nev = nev;
         this.meretX = meretX;
         this.meretY = meretY;
@@ -29,25 +39,9 @@ public  class Targy extends Objektum {
         return meretX;
     }
 
-    public void setMeretX(int meretX) {
-        this.meretX = meretX;
-    }
-
     public int getMeretY() {
         return meretY;
     }
 
-    public void setMeretY(int meretY) {
-        this.meretY = meretY;
-    }
-
-
-
-    public boolean isAkadaly() {
-        return akadaly;
-    }
-
-    public void setAkadaly(boolean akadaly) {
-        this.akadaly = akadaly;
-    }
 }
+

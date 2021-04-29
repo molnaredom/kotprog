@@ -1,5 +1,6 @@
 package mukodes;
 
+import palya.Mezo;
 import palya.Palya;
 import targyak.*;
 
@@ -12,7 +13,7 @@ import java.util.Scanner;
 public class Jatek {
 
 
-    Palya palya = new Palya();
+    Palya palyaJ = new Palya();
     Random random = new Random();
 
 
@@ -30,6 +31,7 @@ public class Jatek {
     NagyFa nagyFa2 = new NagyFa();//NagyFa nagyFa3 = new NagyFa();
 
 
+
     /**
      * jatek inditasa: milyen palyat akarunk,es azzal inditas
      */
@@ -37,7 +39,9 @@ public class Jatek {
         Scanner sc = new Scanner(System.in);
         boolean jolbeirt = false;
         while (!jolbeirt) {
-            System.out.println("Beolvasno(0) vagy randomalni(1) szeretned a palyat?");
+
+            udvozlo();
+            System.out.println("Beolvasni(0) vagy randomalni(1) szeretned a palyat?");
             String melyikpalya = sc.next();
             System.out.println(melyikpalya);
             if (melyikpalya.equals("1")) { //generalas
@@ -50,18 +54,40 @@ public class Jatek {
             } else if (melyikpalya.equals("0")) {//beolvasas
                 jolbeirt = true;
                 jatekBeolvas();
-
+                System.out.println("Pálya sikeresen beolvasva! Indulhat a játék!");
+                jatekInditas();
 
             } else {
-                System.out.println("Helytelenul adtad be a szamot");
+                System.out.println("Helytelenul irtad be a szamot -->  siman 0 vagy 1");
             }
-
-
         }
-
-
     }
 
+    /**
+     * kiirja az üdvözlo szoveget
+     */
+    public void udvozlo()
+    {
+        System.out.println("""
+                    *******************************************************************************************************
+                    
+                                                                ÜDV A JÁTÉKBAN!
+                    
+                    ********************************************************************************************************
+                    Tudnivalók:
+                    - mozgás a w s d -vel (miutan kiirta, hogy sikeres generálás)
+                   
+                    Hibák:
+                    - 6 ból kb egyszer nem generál jól pályát, ezt onnan lehet tudni, hogy nem ír ki semmit--> ujra kell inditani
+                    - Ha a bal alsó sarokba tárgy generálódik ,hibát fog dobni
+                    - Pálya beimportálását helyesen beolvassa  és eltárolja, de valamiért nem azzal folytatódik a játék
+                    - Ház belseje nincs megvalósítva
+                    - Ha átmész a kisfán fű lesz helyette , mert letaposod(Nem Bug Feature:D! )
+                    
+                    
+                    *********************************************************************************************************
+                    """);
+    }
     /**
      * ha mar meg van a palya ezzel elindul a valós játék
      */
@@ -74,54 +100,49 @@ public class Jatek {
         boolean slmanjatekban = false;
         while (tartAJAtek) {
 
-
-            palya.emberLepesPalyan();
+            palyaJ.emberLepesPalyan();
             kor++;
-            System.out.println(kor);
-
-
-
 
             //ha megvan a 8 papir nyerés
-            if (palya.hanypapir() == 8) {
+            if (palyaJ.hanypapir() == 8) {
                 System.out.println("\n\n\n\n!!!!!!!MEGNYERTED A JÁTÉKOT!!!!!!\n\n\n\n");
                 tartAJAtek = false; //leall a jatek
 
             }
             //ha [6-8) intervallumon
-            else if (palya.hanypapir() >= 6) {
+            else if (palyaJ.hanypapir() >= 6) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
 
                     System.out.println("LÉPETT A SLENDERMAN");
-                }else if (palya.slmnTavonBelulTeleport(5)) {
-                    System.out.println("Brutálisan meggyilkolt a slenderman");
+                }else if (palyaJ.slmnTavonBelulTeleport(5)) {
+                    System.out.println("Brutálisan megszurkált a slenderman");
                     tartAJAtek= false;
                 }
             }
             //ha [4,6) intervallumon
-            else if (palya.hanypapir() >= 4) {
+            else if (palyaJ.hanypapir() >= 4) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
 
                     System.out.println("LÉPETT A SLENDERMAN");
                 }
-                else if (palya.slmnTavonBelulTeleport(4)) {
+                else if (palyaJ.slmnTavonBelulTeleport(4)) {
                     System.out.println("Brutálisan meggyilkolt a slenderman");
                     tartAJAtek= false;
                 }
             }
             //  [2,4)  intervallumon
-            else if (palya.hanypapir() >= 2) {
+            else if (palyaJ.hanypapir() >= 2) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
 
                     System.out.println("LÉPETT A SLENDERMAN");
                 }
-                else if (palya.slmnTavonBelulTeleport(3)) {
+                else if (palyaJ.slmnTavonBelulTeleport(3)) {
                     System.out.println("Brutálisan meggyilkolt a slenderman");
                     tartAJAtek= false;
                 }
             }
             // [0,2)  intervallumon
-            else if (palya.hanypapir() >= 1) {
+            else if (palyaJ.hanypapir() >= 1) {
                 if (!slmanjatekban) { //elso lepes
                     slmanjatekban = true;
 
@@ -129,18 +150,13 @@ public class Jatek {
                     System.out.println("megjelent a slenderman");
                 } else { //nem elso lepes ,
                     if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
-                        if (palya.slmanRandomTeleport5lepesenkent()) System.out.println("Brutálisan meggyilkolt a slenderman") ;
+                        if (palyaJ.slmanRandomTeleport5lepesenkent()) System.out.println("Brutálisan meggyilkolt a slenderman") ;
                         System.out.println("LÉPETT A SLENDERMAN");
                     }
                 }
                 //ha 2 vagy annal tobb patpirja van
             }
-
-
-
-
         }
-
     }
 
 
@@ -171,34 +187,61 @@ public class Jatek {
             targyak[i].setVanPapir(true);//a kisorsolt helyeknen legyenek papirok
         }
 
-        palya.generalAlapot();
-        palya.generaljTargyat(szikla1);
-        palya.generaljTargyat(szikla2);
-        palya.generaljTargyat(auto1);
-        palya.generaljTargyat(auto2);
-        palya.generaljTargyat(nagyFa1);
-        palya.generaljTargyat(nagyFa2);
+        palyaJ.generalAlapot();
+        palyaJ.generaljTargyat(szikla1);
+        palyaJ.generaljTargyat(szikla2);
+        palyaJ.generaljTargyat(auto1);
+        palyaJ.generaljTargyat(auto2);
+        palyaJ.generaljTargyat(nagyFa1);
+        palyaJ.generaljTargyat(nagyFa2);
         //palya.generaljTargyat(nagyFa3);
-        palya.generaljTargyat(haz);
-        palya.generaljTargyat(teherauto);
+        palyaJ.generaljTargyat(haz);
+        palyaJ.generaljTargyat(teherauto);
 
-
-        palya.generaljTargyat(new KisFa());
-        palya.generaljTargyat(new KisFa());
-        palya.generaljTargyat(new KisFa());
-        palya.generaljTargyat(new KisFa());
-
-
+        palyaJ.generaljTargyat(new KisFa());
+        palyaJ.generaljTargyat(new KisFa());
+        palyaJ.generaljTargyat(new KisFa());
+        palyaJ.generaljTargyat(new KisFa());
     }
 
 
+    /**
+
+     * jatek beolvasasa filebol
+     */
     public void jatekBeolvas() {
+
         Scanner scanner = null;
+        Mezo[][] palyaBeolv = new Mezo[15][15];
+        int i =0;
+        int j  =0;
+        for (int x = 0; x < 15; x++) {
+            for (int y = 0; y < 15; y++) {
+                palyaBeolv[x][y] = new Mezo(y, x, new Fu(), true);
+            }
+        }
         try {
             scanner = new Scanner(new File("src/resources/p.txt"));
             while(scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+                String  mezoneve  = scanner.next();
+                System.out.print(mezoneve+" ");
+                 if (mezoneve.equals("--"))  palyaBeolv[i][j].setTartalom(new Fu());
+                 if (mezoneve.equals("Sz"))  palyaBeolv[i][j].setTartalom(new Szikla());
+                 if (mezoneve.equals("NF"))  palyaBeolv[i][j].setTartalom(new NagyFa());
+                 if (mezoneve.equals("Ha"))  palyaBeolv[i][j].setTartalom(new Haz());
+                 if (mezoneve.equals("TA"))  palyaBeolv[i][j].setTartalom(new Teherauto());
+                 if (mezoneve.equals("KF"))  palyaBeolv[i][j].setTartalom(new KisFa());
+                 if (mezoneve.equals("H"))  palyaBeolv[i][j].setTartalom(new Hordo());
+                 if (mezoneve.equals("Au"))  palyaBeolv[i][j].setTartalom(new Auto());
+                 i++;
+                 if(i%15==0){j++; i=0;
+                     System.out.println();}
+
+
+
             }
+            palyaJ.setPalya(palyaBeolv);
+
         } catch (IOException e) {
             System.err.println("Hiba történt: " + e.getMessage());
         } finally {
@@ -207,22 +250,6 @@ public class Jatek {
             }
         }
 
-        palya.generalAlapot();
-        palya.generaljTargyat(szikla1);
-        palya.generaljTargyat(szikla2);
-        palya.generaljTargyat(auto1);
-        palya.generaljTargyat(auto2);
-        palya.generaljTargyat(nagyFa1);
-        palya.generaljTargyat(nagyFa2);
-        //palya.generaljTargyat(nagyFa3);
-        palya.generaljTargyat(haz);
-        palya.generaljTargyat(teherauto);
-
-
-        palya.generaljTargyat(new KisFa());
-        palya.generaljTargyat(new KisFa());
-        palya.generaljTargyat(new KisFa());
-        palya.generaljTargyat(new KisFa());
 
 
     }

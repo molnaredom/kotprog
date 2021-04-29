@@ -7,24 +7,11 @@ import java.util.Random;
 
 public class Slenderman extends MozgoLeny {
 
+    /**
+     * konstruktor
+     */
     public Slenderman() {
         setNev("S");
-    }
-
-    Random random = new Random();
-
-    //@Override
-    public void mozgas() {
-        System.out.print("");
-    }
-
-    public void teleportal(Mezo[][] palya) {
-        int x = random.nextInt(15);
-        int y = random.nextInt(15);
-
-
-
-
     }
 
 
