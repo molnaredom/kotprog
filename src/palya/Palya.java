@@ -15,21 +15,29 @@ public class Palya {
     Slenderman slnd = new Slenderman();
     int sldManLepes =0;
     Mezo elozolepes;
+    int elozox =0;
+    int elozoy =0;
+    Targy elozotargy=null;
 
 
     public void slendermanLepesAPalyan() {
         int x = random.nextInt(15);
         int y = random.nextInt(15);
 
-        if (sldManLepes>0) {
-            palya[elozolepes.getX()][elozolepes.getY()].setTartalom(elozolepes.tartalom);
+        if (sldManLepes>0) {  //ha nem az elso lepes akkor visszatesszuk a tartalmat arra a helyre ahonnan elteleportal a slenderman
+
+            palya[elozox][elozoy].setTartalom(elozotargy);
         }
-        elozolepes= palya[x][y];
+
+        //eltaroljuk az adatokat
+        elozox = x;
+        elozoy = y;
+        elozotargy = (Targy) palya[x][y].tartalom;
+
+        //ratesszuk a kisorsolt helyre a slendermant
         palya[x][y].setTartalom(slnd);
 
-
-
-
+        sldManLepes++;
     }
 
     public int hanypapir() {

@@ -1,9 +1,10 @@
 package mukodes;
 
 import palya.Palya;
-import palya.Papir;
 import targyak.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -20,23 +21,21 @@ public class Jatek {
      */
     public void start() {
         Scanner sc = new Scanner(System.in);
-        boolean jolbeirt =false;
+        boolean jolbeirt = false;
         while (!jolbeirt) {
             System.out.println("Beolvasno(0) vagy randomalni(1) szeretned a palyat?");
-            String  melyikpalya = sc.next();
+            String melyikpalya = sc.next();
             System.out.println(melyikpalya);
             if (melyikpalya.equals("1")) { //generalas
-                jolbeirt=true;
+                jolbeirt = true;
                 jatekgeneral();
                 System.out.println("Pálya legenerálva kezdődhet a játék!");
                 jatekInditas();
 
 
-
             } else if (melyikpalya.equals("0")) {//beolvasas
-                jolbeirt=true;
+                jolbeirt = true;
                 jatekBeolvas();
-
 
 
             } else {
@@ -45,7 +44,6 @@ public class Jatek {
 
 
         }
-
 
 
     }
@@ -59,34 +57,59 @@ public class Jatek {
 
         int kor = 0; //hanyadik kornel jarunk
         int slAmikorBelepett = 0;
-        boolean slmanjatekban =false;
+        boolean slmanjatekban = false;
         while (tartAJAtek) {
 
 
             palya.emberLepesPalyan();
             kor++;
             System.out.println(kor);
-            if (palya.hanypapir()==8) {
+            palya.slendermanLepesAPalyan();
+
+
+            //ha megvan a 8 papir nyerés
+            if (palya.hanypapir() == 8) {
                 System.out.println("\n\n\n\n!!!!!!!MEGNYERTED A JÁTÉKOT!!!!!!\n\n\n");
-                tartAJAtek=false;
+                tartAJAtek = false; //leall a jatek
+
             }
-            else if ( palya.hanypapir() >=1) {
-                if (!slmanjatekban) {
-                    slmanjatekban=true;
+            //ha [6-8) intervallumon
+            else if (palya.hanypapir() >= 6) {
+                if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
+                    System.out.println("LÉPETT A SLENDERMAN");
                     palya.slendermanLepesAPalyan();
-                    slAmikorBelepett=kor-1;
+                }
+            }
+            //ha [4,6) intervallumon
+            else if (palya.hanypapir() >= 4) {
+                if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
+                    System.out.println("LÉPETT A SLENDERMAN");
+                    palya.slendermanLepesAPalyan();
+                }
+            }
+            //  [2,4)  intervallumon
+            else if (palya.hanypapir() >= 2) {
+                if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
+                    System.out.println("LÉPETT A SLENDERMAN");
+                    palya.slendermanLepesAPalyan();
+                }
+            }
+            // [0,2)  intervallumon
+            else if (palya.hanypapir() >= 1) {
+                if (!slmanjatekban) { //elso lepes
+                    slmanjatekban = true;
+                    palya.slendermanLepesAPalyan();
+                    slAmikorBelepett = kor - 1;
                     System.out.println("megjelent a slenderman");
-                }else {
-                    if ((kor-slAmikorBelepett)%5==0) {
+                } else { //nem elso lepes ,
+                    if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
                         System.out.println("LÉPETT A SLENDERMAN");
                         palya.slendermanLepesAPalyan();
                     }
                 }
 
-
-
+                //ha 2 vagy annal tobb patpirja van
             }
-
 
 
 
@@ -102,7 +125,7 @@ public class Jatek {
     public void jatekgeneral() {
 
         //todo tul hosszu szet kell szedni
-        Haz haz =new Haz();
+        Haz haz = new Haz();
 
         Auto auto1 = new Auto();
         Auto auto2 = new Auto();
@@ -113,21 +136,19 @@ public class Jatek {
         Szikla szikla2 = new Szikla();
 
         NagyFa nagyFa1 = new NagyFa();
-        NagyFa nagyFa2 = new NagyFa();
-        NagyFa nagyFa3 = new NagyFa();
-
+        NagyFa nagyFa2 = new NagyFa();//NagyFa nagyFa3 = new NagyFa();
 
 //amik esetlegesen papirt tartalmazhatnak
-        Targy[] targyak = new Targy[] {
-                haz,auto1,auto2,teherauto,szikla1,szikla2,nagyFa1,nagyFa2 ,nagyFa3
+        Targy[] targyak = new Targy[]{
+                haz, auto1, auto2, teherauto, szikla1, szikla2, nagyFa1, nagyFa2, //nagyFa3
         };
 
         ArrayList<Integer> melyikTargyonPapir = new ArrayList<>();
 
         int osszPapirSzam = 8;
-        int hanyDarabPapirleloHely =targyak.length;
-        while (melyikTargyonPapir.size() <osszPapirSzam)  {
-            int  generaltSzam = random.nextInt(hanyDarabPapirleloHely);
+        int hanyDarabPapirleloHely = targyak.length;
+        while (melyikTargyonPapir.size() < osszPapirSzam) {
+            int generaltSzam = random.nextInt(hanyDarabPapirleloHely);
             if (!melyikTargyonPapir.contains(generaltSzam)) {
                 melyikTargyonPapir.add(generaltSzam);
             }
@@ -144,7 +165,7 @@ public class Jatek {
         palya.generaljTargyat(auto2);
         palya.generaljTargyat(nagyFa1);
         palya.generaljTargyat(nagyFa2);
-        palya.generaljTargyat(nagyFa3);
+        //palya.generaljTargyat(nagyFa3);
         palya.generaljTargyat(haz);
         palya.generaljTargyat(teherauto);
 
@@ -155,21 +176,22 @@ public class Jatek {
         palya.generaljTargyat(new KisFa());
 
 
-
-
-
-
     }
-
-
-
 
 
     public void jatekBeolvas() {
+        File file = new File("palya1.txt");
+
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                System.out.println(scanner.nextLine());
+            }
+        } catch (IOException e) {
+            System.err.println("Hiba történt: " + e.getMessage());
+        }
 
 
     }
-
-
 }
 
