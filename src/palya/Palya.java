@@ -20,6 +20,8 @@ public class Palya {
     Targy elozotargy = null;
 
 
+
+
     public boolean slmanRandomTeleport5lepesenkent() {
         int x = random.nextInt(15);
         int y = random.nextInt(15);
@@ -65,7 +67,9 @@ public class Palya {
                 if (sldManLepes > 0)  palya[elozoy][elozox].setTartalom(elozotargy);
                 elozox = slmX;
                 elozoy = slmY;
-                if (palya[slmY][slmX].getTartalom().getNev().equals("E")) return true;
+                if (palya[slmY][slmX].getTartalom().getNev().equals("E")) {
+                    return true;
+                }
 
                 elozotargy = (Targy) palya[slmY][slmX].tartalom;
 

@@ -16,6 +16,20 @@ public class Jatek {
     Random random = new Random();
 
 
+    Haz haz = new Haz();
+
+    Auto auto1 = new Auto();
+    Auto auto2 = new Auto();
+
+    Teherauto teherauto = new Teherauto();
+
+    Szikla szikla1 = new Szikla();
+    Szikla szikla2 = new Szikla();
+
+    NagyFa nagyFa1 = new NagyFa();
+    NagyFa nagyFa2 = new NagyFa();//NagyFa nagyFa3 = new NagyFa();
+
+
     /**
      * jatek inditasa: milyen palyat akarunk,es azzal inditas
      */
@@ -65,9 +79,9 @@ public class Jatek {
             kor++;
             System.out.println(kor);
 
-            palya.slmnTavonBelulTeleport(3);
 
-/*
+
+
             //ha megvan a 8 papir nyerés
             if (palya.hanypapir() == 8) {
                 System.out.println("\n\n\n\n!!!!!!!MEGNYERTED A JÁTÉKOT!!!!!!\n\n\n\n");
@@ -77,37 +91,50 @@ public class Jatek {
             //ha [6-8) intervallumon
             else if (palya.hanypapir() >= 6) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
+
                     System.out.println("LÉPETT A SLENDERMAN");
+                }else if (palya.slmnTavonBelulTeleport(5)) {
+                    System.out.println("Brutálisan meggyilkolt a slenderman");
+                    tartAJAtek= false;
                 }
             }
             //ha [4,6) intervallumon
             else if (palya.hanypapir() >= 4) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
+
                     System.out.println("LÉPETT A SLENDERMAN");
+                }
+                else if (palya.slmnTavonBelulTeleport(4)) {
+                    System.out.println("Brutálisan meggyilkolt a slenderman");
+                    tartAJAtek= false;
                 }
             }
             //  [2,4)  intervallumon
             else if (palya.hanypapir() >= 2) {
                 if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
+
                     System.out.println("LÉPETT A SLENDERMAN");
+                }
+                else if (palya.slmnTavonBelulTeleport(3)) {
+                    System.out.println("Brutálisan meggyilkolt a slenderman");
+                    tartAJAtek= false;
                 }
             }
             // [0,2)  intervallumon
-            if (palya.hanypapir() >= 1) {
+            else if (palya.hanypapir() >= 1) {
                 if (!slmanjatekban) { //elso lepes
                     slmanjatekban = true;
-                    palya.slmanRandomTeleport5lepesenkent();
+
                     slAmikorBelepett = kor - 1;
                     System.out.println("megjelent a slenderman");
                 } else { //nem elso lepes ,
                     if ((kor - slAmikorBelepett) % 5 == 0) {//5 körben csak egyszer lepjen
+                        if (palya.slmanRandomTeleport5lepesenkent()) System.out.println("Brutálisan meggyilkolt a slenderman") ;
                         System.out.println("LÉPETT A SLENDERMAN");
-                        palya.slmanRandomTeleport5lepesenkent();
                     }
                 }
-
                 //ha 2 vagy annal tobb patpirja van
-            }*/
+            }
 
 
 
@@ -123,18 +150,6 @@ public class Jatek {
     public void jatekgeneral() {
 
         //todo tul hosszu szet kell szedni
-        Haz haz = new Haz();
-
-        Auto auto1 = new Auto();
-        Auto auto2 = new Auto();
-
-        Teherauto teherauto = new Teherauto();
-
-        Szikla szikla1 = new Szikla();
-        Szikla szikla2 = new Szikla();
-
-        NagyFa nagyFa1 = new NagyFa();
-        NagyFa nagyFa2 = new NagyFa();//NagyFa nagyFa3 = new NagyFa();
 
 //amik esetlegesen papirt tartalmazhatnak
         Targy[] targyak = new Targy[]{
@@ -178,16 +193,36 @@ public class Jatek {
 
 
     public void jatekBeolvas() {
-        File file = new File("p.txt");
-
+        Scanner scanner = null;
         try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
+            scanner = new Scanner(new File("src/resources/p.txt"));
+            while(scanner.hasNextLine()) {
                 System.out.println(scanner.nextLine());
             }
         } catch (IOException e) {
             System.err.println("Hiba történt: " + e.getMessage());
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
+
+        palya.generalAlapot();
+        palya.generaljTargyat(szikla1);
+        palya.generaljTargyat(szikla2);
+        palya.generaljTargyat(auto1);
+        palya.generaljTargyat(auto2);
+        palya.generaljTargyat(nagyFa1);
+        palya.generaljTargyat(nagyFa2);
+        //palya.generaljTargyat(nagyFa3);
+        palya.generaljTargyat(haz);
+        palya.generaljTargyat(teherauto);
+
+
+        palya.generaljTargyat(new KisFa());
+        palya.generaljTargyat(new KisFa());
+        palya.generaljTargyat(new KisFa());
+        palya.generaljTargyat(new KisFa());
 
 
     }
